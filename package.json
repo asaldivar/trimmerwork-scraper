@@ -1,0 +1,24 @@
+{
+  "name": "trimmerwork-scraper",
+  "version": "1.0.0",
+  "description": "job aggregator",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asaldivar/trimmerwork-scraper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asaldivar/trimmerwork-scraper/issues"
+  },
+  "homepage": "https://github.com/asaldivar/trimmerwork-scraper#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "x-ray": "git+https://github.com/matthewmueller/x-ray.git"
+  }
+}
