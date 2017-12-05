@@ -42,6 +42,9 @@ const x = Xray({
 	filters: {
 		trim: function(value) {
 			return value.replace(/\r?\n/g, '').trim()
+		},
+		replaceNwithBr: function(value) {
+			return value.replace(/ /g,'')
 		}
 	}
 })
@@ -55,10 +58,10 @@ x('https://420jobsearch.com/browse-jobs', '.job-list li', [{
 		companyName: '.content .inverse-link',
 		jobTitle: '.addthis_inline_share_toolbox@data-title',
 		jobType: '.job-type | trim',
-		jobDescription: '.container .eleven .padding-right | trim',
-		jobCompensation: '.job-overview li:first-child div a | trim',
+		jobDescription: '.container .eleven .padding-right@html',
+		// jobCompensation: '.job-overview li:first-child div a | trim',
 	})
-}]).paginate('.next@href').limit(2)(function(err, value) {
+}]).paginate('.next@href').limit(1)(function(err, value) {
 	var testObject = value
 
 	let newArray = []
@@ -72,10 +75,13 @@ x('https://420jobsearch.com/browse-jobs', '.job-list li', [{
 		obj.details._id = crypto.createHash('sha1').update(currentDate + random).digest('hex')
 		obj.details.date = !isNaN(obj.date.charAt(1)) ? Date.now() : obj.date
 		obj.details.jobApplication = obj.jobApplication
+		obj.details.jobDescription = obj.details.jobDescription.slice(obj.details.jobDescription.indexOf('Details'), obj.details.jobDescription.lastIndexOf('How to apply'))
+		// obj.details.jobDescription.slice(0,obj.details.jobDescription.indexOf('<h4'))
+		// obj.details.jobDescription.slice(obj.details.jobDescription.lastIndexOf('<h4'), obj.details.jobDescription.length)
 
-		return obj.details
+		console.log(JSON.stringify(obj.details))
 	})
-	console.log(foo)
+	// console.log(foo)
 })
 /**********************************/
 
