@@ -61,12 +61,12 @@ x('https://420jobsearch.com/browse-jobs', '.job-list li', [{
 		jobDescription: '.container .eleven .padding-right@html',
 		// jobCompensation: '.job-overview li:first-child div a | trim',
 	})
-}]).paginate('.next@href').limit(1)(function(err, value) {
+}]).paginate('.next@href').limit(17)(function(err, value) {
 	var testObject = value
 
 	let newArray = []
 
-	var foo = testObject.map(obj => {
+	testObject.map(obj => {
 		let newObject = {}
 		const currentDate = (new Date()).valueOf().toString()
 		const random = Math.random().toString()
@@ -75,13 +75,11 @@ x('https://420jobsearch.com/browse-jobs', '.job-list li', [{
 		obj.details._id = crypto.createHash('sha1').update(currentDate + random).digest('hex')
 		obj.details.date = !isNaN(obj.date.charAt(1)) ? Date.now() : obj.date
 		obj.details.jobApplication = obj.jobApplication
-		obj.details.jobDescription = obj.details.jobDescription.slice(obj.details.jobDescription.indexOf('Details'), obj.details.jobDescription.lastIndexOf('How to apply'))
-		// obj.details.jobDescription.slice(0,obj.details.jobDescription.indexOf('<h4'))
-		// obj.details.jobDescription.slice(obj.details.jobDescription.lastIndexOf('<h4'), obj.details.jobDescription.length)
+		obj.details.jobDescription = obj.details.jobDescription.slice(obj.details.jobDescription.indexOf('<p class="job-full-descr">'), obj.details.jobDescription.lastIndexOf('How to apply'))
 
 		console.log(JSON.stringify(obj.details))
 	})
-	// console.log(foo)
+
 })
 /**********************************/
 
